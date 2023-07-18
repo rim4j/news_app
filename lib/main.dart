@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/config/theme/light_theme.dart';
+import 'package:news_app/features/news/presentation/bloc/news_bloc.dart';
+import 'package:news_app/features/news/presentation/pages/news_page.dart';
+
+import 'config/theme/dark_theme.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'features/news/presentation/bloc/theme_status.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => NewsBloc()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -9,22 +23,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'News app',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
-      home: const HomePage(),
-    );
-  }
-}
+    return BlocBuilder<NewsBloc, NewsState>(
+      builder: (context, newsState) {
+        DarkMode darkMode = newsState.themeStatus as DarkMode;
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
+        return MaterialApp(
+          title: 'News app',
+          debugShowCheckedModeBanner: false,
+          initialRoute: "/",
+          routes: {
+            "/": (context) => const NewsPage(),
+          },
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: darkMode.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        );
+      },
     );
   }
 }
