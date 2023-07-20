@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:news_app/features/news/domain/entities/article_entity.dart';
 import 'package:news_app/features/news/presentation/bloc/news_bloc.dart';
 import 'package:news_app/features/news/presentation/bloc/news_status.dart';
 import 'package:news_app/features/news/presentation/bloc/theme_status.dart';
+import 'package:news_app/features/news/presentation/widgets/article_card.dart';
 
 class NewsPage extends HookWidget {
   const NewsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final Size size = MediaQuery.of(context).size;
 
     useEffect(
       () {
@@ -25,7 +28,7 @@ class NewsPage extends HookWidget {
       appBar: AppBar(
         backgroundColor: colorScheme.primary,
         title: const Text(
-          'news app',
+          'News App',
         ),
         actions: <Widget>[
           BlocBuilder<NewsBloc, NewsState>(
@@ -66,8 +69,25 @@ class NewsPage extends HookWidget {
             );
           }
           if (newsState.newsStatus is NewsStatusCompleted) {
-            return const Center(
-              child: Text("completed"),
+            final NewsStatusCompleted newsStatusCompleted =
+                newsState.newsStatus as NewsStatusCompleted;
+            final List<ArticleEntity> articleList =
+                newsStatusCompleted.articles;
+
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: articleList.length,
+              itemBuilder: (context, index) {
+                final article = articleList[index];
+                return ArticleCard(
+                  onTap: () {},
+                  title: article.title!,
+                  image: article.urlToImage!,
+                  createdAt: article.publishedAt!,
+                  author: article.author!,
+                  screenSize: size,
+                );
+              },
             );
           }
           if (newsState.newsStatus is NewsStatusError) {

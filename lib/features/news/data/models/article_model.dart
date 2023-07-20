@@ -2,7 +2,6 @@ import 'package:news_app/features/news/domain/entities/article_entity.dart';
 
 class ArticleModel extends ArticleEntity {
   const ArticleModel({
-    int? id,
     String? author,
     String? title,
     String? description,
@@ -11,7 +10,6 @@ class ArticleModel extends ArticleEntity {
     String? publishedAt,
     String? content,
   }) : super(
-          id: id,
           author: author,
           title: title,
           description: description,
