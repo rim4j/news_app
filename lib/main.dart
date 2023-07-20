@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/config/routes/on_generate_route.dart';
 import 'package:news_app/config/theme/light_theme.dart';
 import 'package:news_app/features/news/presentation/bloc/news_bloc.dart';
 import 'package:news_app/features/news/presentation/pages/news_page.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           title: 'News app',
           debugShowCheckedModeBanner: false,
           initialRoute: "/",
+          onGenerateRoute: OnGenerateRoute.route,
           routes: {
             "/": (context) => const NewsPage(),
           },

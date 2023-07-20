@@ -7,4 +7,7 @@ ThemeData darkTheme = ThemeData(
     background: AppColorsDark.backGroundColor,
     primary: AppColorsDark.primaryColor,
   ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: AppColorsLight.primaryColor,
+  ),
 );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:news_app/config/routes/route_name.dart';
+import 'package:news_app/config/theme/app_styles.dart';
 import 'package:news_app/features/news/domain/entities/article_entity.dart';
 import 'package:news_app/features/news/presentation/bloc/news_bloc.dart';
 import 'package:news_app/features/news/presentation/bloc/news_status.dart';
@@ -27,8 +29,9 @@ class NewsPage extends HookWidget {
       backgroundColor: colorScheme.background,
       appBar: AppBar(
         backgroundColor: colorScheme.primary,
-        title: const Text(
+        title: Text(
           'News App',
+          style: fEncodeSansMedium,
         ),
         actions: <Widget>[
           BlocBuilder<NewsBloc, NewsState>(
@@ -80,7 +83,11 @@ class NewsPage extends HookWidget {
               itemBuilder: (context, index) {
                 final article = articleList[index];
                 return ArticleCard(
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RouteNames.singleNewsPage,
+                    arguments: article,
+                  ),
                   title: article.title!,
                   image: article.urlToImage!,
                   createdAt: article.publishedAt!,

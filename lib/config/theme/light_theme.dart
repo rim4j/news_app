@@ -7,4 +7,7 @@ ThemeData lightTheme = ThemeData(
     background: AppColorsLight.backGroundColor,
     primary: AppColorsLight.primaryColor,
   ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: AppColorsLight.primaryColor,
+  ),
 );
