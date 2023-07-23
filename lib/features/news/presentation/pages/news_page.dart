@@ -54,6 +54,14 @@ class NewsPage extends HookWidget {
                 },
               );
             },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.bookmark,
+              color: Colors.white,
+            ),
+            onPressed: () =>
+                Navigator.pushNamed(context, RouteNames.bookmarkPage),
           )
         ],
       ),

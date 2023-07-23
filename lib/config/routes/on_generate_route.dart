@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/config/routes/route_name.dart';
 import 'package:news_app/config/theme/app_styles.dart';
 import 'package:news_app/features/news/domain/entities/article_entity.dart';
+import 'package:news_app/features/news/presentation/pages/bookmark_page.dart';
 import 'package:news_app/features/news/presentation/pages/single_news_page.dart';
 
 class OnGenerateRoute {
@@ -15,6 +16,9 @@ class OnGenerateRoute {
         } else {
           return routeBuilder(const NoScreenFound());
         }
+      case RouteNames.bookmarkPage:
+        return routeBuilder(const BookmarkPage());
+
       default:
         return routeBuilder(const NoScreenFound());
     }

@@ -1,7 +1,10 @@
+import 'package:floor/floor.dart';
 import 'package:news_app/features/news/domain/entities/article_entity.dart';
 
+@Entity(tableName: 'article', primaryKeys: ['id'])
 class ArticleModel extends ArticleEntity {
   const ArticleModel({
+    int? id,
     String? author,
     String? title,
     String? description,
@@ -29,5 +32,17 @@ class ArticleModel extends ArticleEntity {
       publishedAt: element['publishedAt'] ?? "",
       content: element['content'] ?? "",
     );
+  }
+
+  factory ArticleModel.fromEntity(ArticleEntity entity) {
+    return ArticleModel(
+        id: entity.id,
+        author: entity.author,
+        title: entity.title,
+        description: entity.description,
+        url: entity.url,
+        urlToImage: entity.urlToImage,
+        publishedAt: entity.publishedAt,
+        content: entity.content);
   }
 }
