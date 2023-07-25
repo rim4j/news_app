@@ -116,20 +116,6 @@ class _$ArticleDao extends ArticleDao {
                   'urlToImage': item.urlToImage,
                   'publishedAt': item.publishedAt,
                   'content': item.content
-                }),
-        _articleModelDeletionAdapter = DeletionAdapter(
-            database,
-            'article',
-            ['id'],
-            (ArticleModel item) => <String, Object?>{
-                  'id': item.id,
-                  'author': item.author,
-                  'title': item.title,
-                  'description': item.description,
-                  'url': item.url,
-                  'urlToImage': item.urlToImage,
-                  'publishedAt': item.publishedAt,
-                  'content': item.content
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -140,7 +126,11 @@ class _$ArticleDao extends ArticleDao {
 
   final InsertionAdapter<ArticleModel> _articleModelInsertionAdapter;
 
-  final DeletionAdapter<ArticleModel> _articleModelDeletionAdapter;
+  @override
+  Future<void> deleteArticle(String title) async {
+    await _queryAdapter.queryNoReturn('DELETE FROM article WHERE title = ?1',
+        arguments: [title]);
+  }
 
   @override
   Future<List<ArticleModel>> getArticles() async {
@@ -157,13 +147,23 @@ class _$ArticleDao extends ArticleDao {
   }
 
   @override
-  Future<void> insertArticle(ArticleModel article) async {
-    await _articleModelInsertionAdapter.insert(
-        article, OnConflictStrategy.abort);
+  Future<ArticleModel?> findArticleByTitle(String title) async {
+    return _queryAdapter.query('SELECT * FROM article WHERE title = ?1',
+        mapper: (Map<String, Object?> row) => ArticleModel(
+            id: row['id'] as int?,
+            author: row['author'] as String?,
+            title: row['title'] as String?,
+            description: row['description'] as String?,
+            url: row['url'] as String?,
+            urlToImage: row['urlToImage'] as String?,
+            publishedAt: row['publishedAt'] as String?,
+            content: row['content'] as String?),
+        arguments: [title]);
   }
 
   @override
-  Future<void> deleteArticle(ArticleModel article) async {
-    await _articleModelDeletionAdapter.delete(article);
+  Future<void> insertArticle(ArticleModel article) async {
+    await _articleModelInsertionAdapter.insert(
+        article, OnConflictStrategy.abort);
   }
 }

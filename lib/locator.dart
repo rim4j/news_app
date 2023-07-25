@@ -6,7 +6,8 @@ import 'package:news_app/features/news/data/data_sources/remote/article_remote_d
 import 'package:news_app/features/news/data/repositories/article_repository_impl.dart';
 import 'package:news_app/features/news/domain/repositories/article_repository.dart';
 import 'package:news_app/features/news/domain/usecases/bookmark_article_usecase.dart';
-import 'package:news_app/features/news/domain/usecases/delete_article_usecase.dart';
+import 'package:news_app/features/news/domain/usecases/delete_bookmark_article_usecase.dart';
+import 'package:news_app/features/news/domain/usecases/find_bookmark_article_usecase.dart';
 import 'package:news_app/features/news/domain/usecases/get_articles_usecase.dart';
 import 'package:news_app/features/news/domain/usecases/get_bookmark_articles_usecase.dart';
 import 'package:news_app/features/news/presentation/bloc/news_bloc.dart';
@@ -34,13 +35,24 @@ Future<void> setup() async {
   locator.registerSingleton<BookmarkArticleUseCase>(
       BookmarkArticleUseCase(articleRepository: locator()));
 
-  locator.registerSingleton<DeleteArticleUseCase>(
-      DeleteArticleUseCase(articleRepository: locator()));
+  locator.registerSingleton<DeleteBookmarkArticleUseCase>(
+      DeleteBookmarkArticleUseCase(articleRepository: locator()));
 
   locator.registerSingleton<GetBookmarkArticlesUseCase>(
       GetBookmarkArticlesUseCase(articleRepository: locator()));
 
+  locator.registerSingleton<FindBookmarkArticleUseCase>(
+      FindBookmarkArticleUseCase(articleRepository: locator()));
+
   //BLOCS
 
-  locator.registerSingleton<NewsBloc>(NewsBloc(getArticlesUseCase: locator()));
+  locator.registerSingleton<NewsBloc>(
+    NewsBloc(
+      getArticlesUseCase: locator(),
+      getBookmarkArticlesUseCase: locator(),
+      bookmarkArticleUseCase: locator(),
+      findBookmarkArticleUseCase: locator(),
+      deleteBookmarkArticleUseCase: locator(),
+    ),
+  );
 }

@@ -41,13 +41,35 @@ class ArticleRepositoryImpl implements ArticleRepository {
   }
 
   @override
-  Future<List<ArticleEntity>> getBookmarkArticles() async {
-    return appDataBase.articleDAO.getArticles();
+  Future<DataState<List<ArticleEntity>>> getBookmarkArticles() async {
+    try {
+      final List<ArticleEntity> bookmarkArticles =
+          await appDataBase.articleDAO.getArticles();
+
+      return DataSuccess(bookmarkArticles);
+    } catch (e) {
+      return const DataFailed("something went wrong");
+    }
   }
 
   @override
-  Future<void> removeBookmarkArticle(ArticleEntity articleEntity) async {
-    return appDataBase.articleDAO
-        .deleteArticle(ArticleModel.fromEntity(articleEntity));
+  Future<DataState<bool>> findArticleByTitle(String title) async {
+    try {
+      final ArticleEntity? articleEntity =
+          await appDataBase.articleDAO.findArticleByTitle(title);
+
+      if (articleEntity == null) {
+        return const DataSuccess(false);
+      } else {
+        return const DataSuccess(true);
+      }
+    } catch (e) {
+      return const DataFailed("something went wrong");
+    }
+  }
+
+  @override
+  Future<void> removeBookmarkArticle(String title) async {
+    return appDataBase.articleDAO.deleteArticle(title);
   }
 }

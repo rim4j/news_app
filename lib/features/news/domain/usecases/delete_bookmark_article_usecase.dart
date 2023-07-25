@@ -1,14 +1,14 @@
 import 'package:news_app/common/usecase/use_case.dart';
-import 'package:news_app/features/news/domain/entities/article_entity.dart';
 import 'package:news_app/features/news/domain/repositories/article_repository.dart';
 
-class DeleteArticleUseCase implements UseCase<void, ArticleEntity> {
+class DeleteBookmarkArticleUseCase implements UseCase<void, String> {
   final ArticleRepository articleRepository;
-  DeleteArticleUseCase({
+  DeleteBookmarkArticleUseCase({
     required this.articleRepository,
   });
+
   @override
-  Future call({ArticleEntity? params}) {
+  Future<void> call({String? params}) {
     return articleRepository.removeBookmarkArticle(params!);
   }
 }
