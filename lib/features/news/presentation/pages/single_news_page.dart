@@ -45,6 +45,8 @@ class SingleNewsPage extends HookWidget {
                       .add(DeleteBookmarkArticleEvent(title: article.title!));
                   BlocProvider.of<NewsBloc>(context)
                       .add(FindBookmarkArticleEvent(title: article.title!));
+                  BlocProvider.of<NewsBloc>(context)
+                      .add(GetAllBookmarkArticlesEvent());
                 } else {
                   BlocProvider.of<NewsBloc>(context)
                       .add(AddToBookmarkEvent(articleEntity: article));
