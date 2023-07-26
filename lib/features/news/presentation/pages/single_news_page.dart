@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:news_app/common/constants/dimens.dart';
+import 'package:news_app/common/utils/custom_snackbar.dart';
 import 'package:news_app/config/theme/app_colors.dart';
 import 'package:news_app/config/theme/app_styles.dart';
 import 'package:news_app/features/news/domain/entities/article_entity.dart';
@@ -43,6 +44,8 @@ class SingleNewsPage extends HookWidget {
                 if (isExist) {
                   BlocProvider.of<NewsBloc>(context)
                       .add(DeleteBookmarkArticleEvent(title: article.title!));
+                  showSnack(
+                      context, "Deleted from bookmark", colorScheme.primary);
                   BlocProvider.of<NewsBloc>(context)
                       .add(FindBookmarkArticleEvent(title: article.title!));
                   BlocProvider.of<NewsBloc>(context)
@@ -50,6 +53,8 @@ class SingleNewsPage extends HookWidget {
                 } else {
                   BlocProvider.of<NewsBloc>(context)
                       .add(AddToBookmarkEvent(articleEntity: article));
+                  showSnack(
+                      context, "Added to the bookmark", colorScheme.primary);
                   BlocProvider.of<NewsBloc>(context)
                       .add(FindBookmarkArticleEvent(title: article.title!));
                 }
