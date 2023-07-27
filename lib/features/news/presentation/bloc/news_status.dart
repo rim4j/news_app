@@ -5,16 +5,16 @@ abstract class NewsStatus {}
 class NewsStatusLoading extends NewsStatus {}
 
 class NewsStatusCompleted extends NewsStatus {
-  List<ArticleEntity> articles;
 
   NewsStatusCompleted({
     required this.articles,
   });
+  List<ArticleEntity> articles;
 }
 
 class NewsStatusError extends NewsStatus {
-  String error;
   NewsStatusError({
     required this.error,
   });
+  String error;
 }

@@ -9,24 +9,24 @@ class GetArticlesEvent extends NewsEvent {}
 class GetAllBookmarkArticlesEvent extends NewsEvent {}
 
 class AddToBookmarkEvent extends NewsEvent {
-  final ArticleEntity articleEntity;
   AddToBookmarkEvent({
     required this.articleEntity,
   });
+  final ArticleEntity articleEntity;
 }
 
 class FindBookmarkArticleEvent extends NewsEvent {
-  final String title;
 
   FindBookmarkArticleEvent({
     required this.title,
   });
+  final String title;
 }
 
 class DeleteBookmarkArticleEvent extends NewsEvent {
-  final String title;
 
   DeleteBookmarkArticleEvent({
     required this.title,
   });
+  final String title;
 }

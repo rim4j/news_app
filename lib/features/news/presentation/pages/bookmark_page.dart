@@ -29,7 +29,7 @@ class BookmarkPage extends HookWidget {
       appBar: AppBar(
         backgroundColor: colorScheme.primary,
         title: Text(
-          "bookmark",
+          'bookmark',
           style: fEncodeSansMedium,
         ),
       ),
@@ -50,7 +50,7 @@ class BookmarkPage extends HookWidget {
             if (articleList.isEmpty) {
               return Center(
                 child: Text(
-                  "bookmark is empty!",
+                  'bookmark is empty!',
                   style: fEncodeSansBold,
                 ),
               );
@@ -78,7 +78,7 @@ class BookmarkPage extends HookWidget {
           }
           if (newsState.allBookmarkStatus is AllBookmarkStatusError) {
             return const Center(
-              child: Text("error"),
+              child: Text('error'),
             );
           }
 

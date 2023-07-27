@@ -45,7 +45,7 @@ class SingleNewsPage extends HookWidget {
                   BlocProvider.of<NewsBloc>(context)
                       .add(DeleteBookmarkArticleEvent(title: article.title!));
                   showSnack(
-                      context, "Deleted from bookmark", colorScheme.primary);
+                      context, 'Deleted from bookmark', colorScheme.primary);
                   BlocProvider.of<NewsBloc>(context)
                       .add(FindBookmarkArticleEvent(title: article.title!));
                   BlocProvider.of<NewsBloc>(context)
@@ -54,7 +54,7 @@ class SingleNewsPage extends HookWidget {
                   BlocProvider.of<NewsBloc>(context)
                       .add(AddToBookmarkEvent(articleEntity: article));
                   showSnack(
-                      context, "Added to the bookmark", colorScheme.primary);
+                      context, 'Added to the bookmark', colorScheme.primary);
                   BlocProvider.of<NewsBloc>(context)
                       .add(FindBookmarkArticleEvent(title: article.title!));
                 }

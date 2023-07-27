@@ -17,11 +17,6 @@ part 'news_event.dart';
 part 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  final GetArticlesUseCase getArticlesUseCase;
-  final GetBookmarkArticlesUseCase getBookmarkArticlesUseCase;
-  final BookmarkArticleUseCase bookmarkArticleUseCase;
-  final FindBookmarkArticleUseCase findBookmarkArticleUseCase;
-  final DeleteBookmarkArticleUseCase deleteBookmarkArticleUseCase;
 
   NewsBloc({
     required this.getArticlesUseCase,
@@ -29,14 +24,16 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     required this.bookmarkArticleUseCase,
     required this.findBookmarkArticleUseCase,
     required this.deleteBookmarkArticleUseCase,
-  }) : super(NewsState(
-          themeStatus: DarkMode(isDarkMode: false),
-          newsStatus: NewsStatusLoading(),
-          allBookmarkStatus: AllBookmarkStatusLoading(),
-          addToBookmarkStatus: AddToBookmarkStatusInitial(),
-          findBookmarkArticleStatus: FindBookmarkArticleStatusLoading(),
-          deleteBookmarkArticleStatus: DeleteBookmarkArticleStatusInitial(),
-        )) {
+  }) : super(
+          NewsState(
+            themeStatus: DarkMode(isDarkMode: false),
+            newsStatus: NewsStatusLoading(),
+            allBookmarkStatus: AllBookmarkStatusLoading(),
+            addToBookmarkStatus: AddToBookmarkStatusInitial(),
+            findBookmarkArticleStatus: FindBookmarkArticleStatusLoading(),
+            deleteBookmarkArticleStatus: DeleteBookmarkArticleStatusInitial(),
+          ),
+        ) {
     on<IsDarkModeEvent>(_isDarkModeEvent);
     on<GetArticlesEvent>(_isGetArticlesEvent);
     on<GetAllBookmarkArticlesEvent>(_isGetAllBookmarkArticlesEvent);
@@ -44,9 +41,14 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<FindBookmarkArticleEvent>(_isFindBookmarkArticleEvent);
     on<DeleteBookmarkArticleEvent>(_isDeleteBookmarkArticleEvent);
   }
+  final GetArticlesUseCase getArticlesUseCase;
+  final GetBookmarkArticlesUseCase getBookmarkArticlesUseCase;
+  final BookmarkArticleUseCase bookmarkArticleUseCase;
+  final FindBookmarkArticleUseCase findBookmarkArticleUseCase;
+  final DeleteBookmarkArticleUseCase deleteBookmarkArticleUseCase;
 
   void _isDarkModeEvent(IsDarkModeEvent event, Emitter<NewsState> emit) {
-    DarkMode darkMode = state.themeStatus as DarkMode;
+    final DarkMode darkMode = state.themeStatus as DarkMode;
 
     if (darkMode.isDarkMode) {
       emit(state.copyWith(newThemeStatus: DarkMode(isDarkMode: false)));
@@ -55,84 +57,125 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     }
   }
 
-  void _isGetArticlesEvent(
-      GetArticlesEvent event, Emitter<NewsState> emit) async {
+  Future<void> _isGetArticlesEvent(
+    GetArticlesEvent event,
+    Emitter<NewsState> emit,
+  ) async {
     emit(state.copyWith(newNewsStatus: NewsStatusLoading()));
     final DataState dataState = await getArticlesUseCase();
 
     if (dataState is DataSuccess) {
-      emit(state.copyWith(
-          newNewsStatus: NewsStatusCompleted(articles: dataState.data)));
+      emit(
+        state.copyWith(
+          newNewsStatus: NewsStatusCompleted(articles: dataState.data),
+        ),
+      );
     }
 
     if (dataState is DataFailed) {
-      emit(state.copyWith(
-          newNewsStatus: NewsStatusError(error: dataState.error!)));
+      emit(
+        state.copyWith(
+          newNewsStatus: NewsStatusError(error: dataState.error!),
+        ),
+      );
     }
   }
 
-  void _isGetAllBookmarkArticlesEvent(
-      GetAllBookmarkArticlesEvent event, Emitter<NewsState> emit) async {
-    DataState dataState = await getBookmarkArticlesUseCase();
+  Future<void> _isGetAllBookmarkArticlesEvent(
+    GetAllBookmarkArticlesEvent event,
+    Emitter<NewsState> emit,
+  ) async {
+    final DataState dataState = await getBookmarkArticlesUseCase();
 
     if (dataState is DataSuccess) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           newAllBookmarkStatus:
-              AllBookmarkStatusCompleted(bookmarkArticles: dataState.data)));
+              AllBookmarkStatusCompleted(bookmarkArticles: dataState.data),
+        ),
+      );
     }
 
     if (dataState is DataFailed) {
-      emit(state.copyWith(
-          newAllBookmarkStatus:
-              AllBookmarkStatusError(error: dataState.error!)));
+      emit(
+        state.copyWith(
+          newAllBookmarkStatus: AllBookmarkStatusError(error: dataState.error!),
+        ),
+      );
     }
   }
 
-  void _isAddToBookmarkEvent(
-      AddToBookmarkEvent event, Emitter<NewsState> emit) async {
+  Future<void> _isAddToBookmarkEvent(
+    AddToBookmarkEvent event,
+    Emitter<NewsState> emit,
+  ) async {
     emit(state.copyWith(newAddToBookmarkStatus: AddToBookmarkStatusLoading()));
     try {
       await bookmarkArticleUseCase(params: event.articleEntity);
-      emit(state.copyWith(
-          newAddToBookmarkStatus: AddToBookmarkStatusCompleted()));
+      emit(
+        state.copyWith(
+          newAddToBookmarkStatus: AddToBookmarkStatusCompleted(),
+        ),
+      );
     } catch (e) {
       emit(state.copyWith(newAddToBookmarkStatus: AddToBookmarkStatusError()));
     }
   }
 
-  void _isFindBookmarkArticleEvent(
-      FindBookmarkArticleEvent event, Emitter<NewsState> emit) async {
-    emit(state.copyWith(
-        newFindBookmarkArticleStatus: FindBookmarkArticleStatusLoading()));
-    DataState dataState = await findBookmarkArticleUseCase(params: event.title);
+  Future<void> _isFindBookmarkArticleEvent(
+    FindBookmarkArticleEvent event,
+    Emitter<NewsState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        newFindBookmarkArticleStatus: FindBookmarkArticleStatusLoading(),
+      ),
+    );
+    final DataState dataState =
+        await findBookmarkArticleUseCase(params: event.title);
 
     if (dataState is DataSuccess) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           newFindBookmarkArticleStatus:
-              FindBookmarkArticleStatusCompleted(isExist: dataState.data)));
+              FindBookmarkArticleStatusCompleted(isExist: dataState.data),
+        ),
+      );
     }
 
     if (dataState is DataFailed) {
-      emit(state.copyWith(
-          newFindBookmarkArticleStatus: FindBookmarkArticleStatusError()));
+      emit(
+        state.copyWith(
+          newFindBookmarkArticleStatus: FindBookmarkArticleStatusError(),
+        ),
+      );
     }
   }
 
-  void _isDeleteBookmarkArticleEvent(
-      DeleteBookmarkArticleEvent event, Emitter<NewsState> emit) async {
-    emit(state.copyWith(
-        newDeleteBookmarkArticleStatus: DeleteBookmarkArticleStatusLoading()));
+  Future<void> _isDeleteBookmarkArticleEvent(
+    DeleteBookmarkArticleEvent event,
+    Emitter<NewsState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        newDeleteBookmarkArticleStatus: DeleteBookmarkArticleStatusLoading(),
+      ),
+    );
 
     try {
       await deleteBookmarkArticleUseCase(params: event.title);
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           newDeleteBookmarkArticleStatus:
-              DeleteBookmarkArticleStatusCompleted()));
-      print("deleted ");
+              DeleteBookmarkArticleStatusCompleted(),
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(
-          newDeleteBookmarkArticleStatus: DeleteBookmarkArticleStatusError()));
-      print(e.toString());
+      emit(
+        state.copyWith(
+          newDeleteBookmarkArticleStatus: DeleteBookmarkArticleStatusError(),
+        ),
+      );
     }
   }
 }

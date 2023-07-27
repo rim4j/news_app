@@ -5,10 +5,10 @@ import 'package:news_app/features/news/domain/repositories/article_repository.da
 
 class GetArticlesUseCase
     implements UseCase<DataState<List<ArticleEntity>>, void> {
-  final ArticleRepository articleRepository;
   GetArticlesUseCase({
     required this.articleRepository,
   });
+  final ArticleRepository articleRepository;
 
   @override
   Future<DataState<List<ArticleEntity>>> call({void params}) {

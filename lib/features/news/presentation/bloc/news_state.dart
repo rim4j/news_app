@@ -1,12 +1,6 @@
 part of 'news_bloc.dart';
 
 class NewsState {
-  ThemeStatus themeStatus;
-  NewsStatus newsStatus;
-  AllBookmarkStatus allBookmarkStatus;
-  AddToBookmarkStatus addToBookmarkStatus;
-  FindBookmarkArticleStatus findBookmarkArticleStatus;
-  DeleteBookmarkArticleStatus deleteBookmarkArticleStatus;
 
   NewsState({
     required this.themeStatus,
@@ -16,6 +10,12 @@ class NewsState {
     required this.findBookmarkArticleStatus,
     required this.deleteBookmarkArticleStatus,
   });
+  ThemeStatus themeStatus;
+  NewsStatus newsStatus;
+  AllBookmarkStatus allBookmarkStatus;
+  AddToBookmarkStatus addToBookmarkStatus;
+  FindBookmarkArticleStatus findBookmarkArticleStatus;
+  DeleteBookmarkArticleStatus deleteBookmarkArticleStatus;
 
   NewsState copyWith({
     ThemeStatus? newThemeStatus,

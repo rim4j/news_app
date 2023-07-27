@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/config/routes/on_generate_route.dart';
+import 'package:news_app/config/theme/dark_theme.dart';
 import 'package:news_app/config/theme/light_theme.dart';
 import 'package:news_app/features/news/presentation/bloc/news_bloc.dart';
+import 'package:news_app/features/news/presentation/bloc/theme_status.dart';
 import 'package:news_app/features/news/presentation/pages/news_page.dart';
 import 'package:news_app/locator.dart';
-
-import 'config/theme/dark_theme.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'features/news/presentation/bloc/theme_status.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,15 +27,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NewsBloc, NewsState>(
       builder: (context, newsState) {
-        DarkMode darkMode = newsState.themeStatus as DarkMode;
+        final DarkMode darkMode = newsState.themeStatus as DarkMode;
 
         return MaterialApp(
           title: 'News app',
           debugShowCheckedModeBanner: false,
-          initialRoute: "/",
+          initialRoute: '/',
           onGenerateRoute: OnGenerateRoute.route,
           routes: {
-            "/": (context) => const NewsPage(),
+            '/': (context) => const NewsPage(),
           },
           theme: lightTheme,
           darkTheme: darkTheme,
