@@ -1,9 +1,25 @@
-abstract class AddToBookmarkStatus {}
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
-class AddToBookmarkStatusInitial extends AddToBookmarkStatus {}
+@immutable
+abstract class AddToBookmarkStatus extends Equatable {}
 
-class AddToBookmarkStatusLoading extends AddToBookmarkStatus {}
+class AddToBookmarkStatusInitial extends AddToBookmarkStatus {
+  @override
+  List<Object?> get props => [];
+}
 
-class AddToBookmarkStatusCompleted extends AddToBookmarkStatus {}
+class AddToBookmarkStatusLoading extends AddToBookmarkStatus {
+  @override
+  List<Object?> get props => [];
+}
 
-class AddToBookmarkStatusError extends AddToBookmarkStatus {}
+class AddToBookmarkStatusCompleted extends AddToBookmarkStatus {
+  @override
+  List<Object?> get props => [];
+}
+
+class AddToBookmarkStatusError extends AddToBookmarkStatus {
+  @override
+  List<Object?> get props => [];
+}

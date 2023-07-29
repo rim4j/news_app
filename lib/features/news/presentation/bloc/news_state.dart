@@ -1,8 +1,7 @@
 part of 'news_bloc.dart';
 
-class NewsState {
-
-  NewsState({
+class NewsState extends Equatable {
+  const NewsState({
     required this.themeStatus,
     required this.newsStatus,
     required this.allBookmarkStatus,
@@ -10,12 +9,12 @@ class NewsState {
     required this.findBookmarkArticleStatus,
     required this.deleteBookmarkArticleStatus,
   });
-  ThemeStatus themeStatus;
-  NewsStatus newsStatus;
-  AllBookmarkStatus allBookmarkStatus;
-  AddToBookmarkStatus addToBookmarkStatus;
-  FindBookmarkArticleStatus findBookmarkArticleStatus;
-  DeleteBookmarkArticleStatus deleteBookmarkArticleStatus;
+  final ThemeStatus themeStatus;
+  final NewsStatus newsStatus;
+  final AllBookmarkStatus allBookmarkStatus;
+  final AddToBookmarkStatus addToBookmarkStatus;
+  final FindBookmarkArticleStatus findBookmarkArticleStatus;
+  final DeleteBookmarkArticleStatus deleteBookmarkArticleStatus;
 
   NewsState copyWith({
     ThemeStatus? newThemeStatus,
@@ -36,4 +35,14 @@ class NewsState {
           newDeleteBookmarkArticleStatus ?? deleteBookmarkArticleStatus,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        themeStatus,
+        newsStatus,
+        allBookmarkStatus,
+        addToBookmarkStatus,
+        findBookmarkArticleStatus,
+        deleteBookmarkArticleStatus,
+      ];
 }

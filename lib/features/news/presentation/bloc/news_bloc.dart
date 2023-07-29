@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:news_app/common/resources/data_state.dart';
 import 'package:news_app/features/news/domain/entities/article_entity.dart';
 import 'package:news_app/features/news/domain/usecases/bookmark_article_usecase.dart';
@@ -17,7 +18,6 @@ part 'news_event.dart';
 part 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-
   NewsBloc({
     required this.getArticlesUseCase,
     required this.getBookmarkArticlesUseCase,
