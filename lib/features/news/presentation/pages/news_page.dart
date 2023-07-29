@@ -43,7 +43,7 @@ class NewsPage extends HookWidget {
               return true;
             },
             builder: (context, newsState) {
-              DarkMode darkMode = newsState.themeStatus as DarkMode;
+              final DarkMode darkMode = newsState.themeStatus as DarkMode;
               return IconButton(
                 icon: Icon(
                   darkMode.isDarkMode ? Icons.light_mode : Icons.dark_mode,
@@ -107,7 +107,7 @@ class NewsPage extends HookWidget {
           }
           if (newsState.newsStatus is NewsStatusError) {
             return const Center(
-              child: Text("error"),
+              child: Text('error'),
             );
           }
 

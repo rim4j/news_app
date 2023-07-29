@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 abstract class ArticleRemoteDataSource {
-  Future<dynamic> getNewsArticles();
+  Future<Response> getNewsArticles();
 }

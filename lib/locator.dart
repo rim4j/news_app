@@ -16,33 +16,43 @@ GetIt locator = GetIt.instance;
 
 Future<void> setup() async {
   final database =
-      await $FloorAppDataBase.databaseBuilder("app_database.db").build();
+      await $FloorAppDataBase.databaseBuilder('app_database.db').build();
   locator.registerSingleton<AppDataBase>(database);
 
   locator.registerSingleton<Dio>(Dio());
   //DATA SOURCES
   locator.registerSingleton<ArticleRemoteDataSource>(
-      ArticleRemoteDataSourceImpl(dio: locator()));
+    ArticleRemoteDataSourceImpl(dio: locator()),
+  );
 
   //REPOSITORIES
-  locator.registerSingleton<ArticleRepository>(ArticleRepositoryImpl(
-      articleRemoteDataSource: locator(), appDataBase: locator()));
+  locator.registerSingleton<ArticleRepository>(
+    ArticleRepositoryImpl(
+      articleRemoteDataSource: locator(),
+      appDataBase: locator(),
+    ),
+  );
 
   //USE CASES
   locator.registerSingleton<GetArticlesUseCase>(
-      GetArticlesUseCase(articleRepository: locator()));
+    GetArticlesUseCase(articleRepository: locator()),
+  );
 
   locator.registerSingleton<BookmarkArticleUseCase>(
-      BookmarkArticleUseCase(articleRepository: locator()));
+    BookmarkArticleUseCase(articleRepository: locator()),
+  );
 
   locator.registerSingleton<DeleteBookmarkArticleUseCase>(
-      DeleteBookmarkArticleUseCase(articleRepository: locator()));
+    DeleteBookmarkArticleUseCase(articleRepository: locator()),
+  );
 
   locator.registerSingleton<GetBookmarkArticlesUseCase>(
-      GetBookmarkArticlesUseCase(articleRepository: locator()));
+    GetBookmarkArticlesUseCase(articleRepository: locator()),
+  );
 
   locator.registerSingleton<FindBookmarkArticleUseCase>(
-      FindBookmarkArticleUseCase(articleRepository: locator()));
+    FindBookmarkArticleUseCase(articleRepository: locator()),
+  );
 
   //BLOCS
 

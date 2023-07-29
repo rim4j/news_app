@@ -9,7 +9,7 @@ abstract class ArticleDao {
   @Query('DELETE FROM article WHERE title = :title')
   Future<void> deleteArticle(String title);
 
-  @Query("SELECT * FROM article")
+  @Query('SELECT * FROM article')
   Future<List<ArticleModel>> getArticles();
 
   @Query('SELECT * FROM article WHERE title = :title')

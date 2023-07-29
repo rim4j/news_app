@@ -3,12 +3,12 @@ import 'package:news_app/features/news/domain/entities/article_entity.dart';
 import 'package:news_app/features/news/domain/repositories/article_repository.dart';
 
 class BookmarkArticleUseCase implements UseCase<void, ArticleEntity> {
-  final ArticleRepository articleRepository;
   BookmarkArticleUseCase({
     required this.articleRepository,
   });
+  final ArticleRepository articleRepository;
   @override
-  Future call({ArticleEntity? params}) {
+  Future<dynamic> call({ArticleEntity? params}) {
     return articleRepository.bookmarkArticle(params!);
   }
 }

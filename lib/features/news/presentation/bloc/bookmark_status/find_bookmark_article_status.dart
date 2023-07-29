@@ -1,13 +1,25 @@
-abstract class FindBookmarkArticleStatus {}
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
-class FindBookmarkArticleStatusLoading extends FindBookmarkArticleStatus {}
+@immutable
+abstract class FindBookmarkArticleStatus extends Equatable {}
+
+class FindBookmarkArticleStatusLoading extends FindBookmarkArticleStatus {
+  @override
+  List<Object?> get props => [];
+}
 
 class FindBookmarkArticleStatusCompleted extends FindBookmarkArticleStatus {
-  final bool isExist;
-
   FindBookmarkArticleStatusCompleted({
     required this.isExist,
   });
+  final bool isExist;
+
+  @override
+  List<Object?> get props => [isExist];
 }
 
-class FindBookmarkArticleStatusError extends FindBookmarkArticleStatus {}
+class FindBookmarkArticleStatusError extends FindBookmarkArticleStatus {
+  @override
+  List<Object?> get props => [];
+}

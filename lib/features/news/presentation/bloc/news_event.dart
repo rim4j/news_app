@@ -1,32 +1,48 @@
 part of 'news_bloc.dart';
 
-abstract class NewsEvent {}
+abstract class NewsEvent extends Equatable {}
 
-class IsDarkModeEvent extends NewsEvent {}
+class IsDarkModeEvent extends NewsEvent {
+  @override
+  List<Object?> get props => [];
+}
 
-class GetArticlesEvent extends NewsEvent {}
+class GetArticlesEvent extends NewsEvent {
+  @override
+  List<Object?> get props => [];
+}
 
-class GetAllBookmarkArticlesEvent extends NewsEvent {}
+class GetAllBookmarkArticlesEvent extends NewsEvent {
+  @override
+  List<Object?> get props => [];
+}
 
 class AddToBookmarkEvent extends NewsEvent {
-  final ArticleEntity articleEntity;
   AddToBookmarkEvent({
     required this.articleEntity,
   });
+  final ArticleEntity articleEntity;
+
+  @override
+  List<Object?> get props => [articleEntity];
 }
 
 class FindBookmarkArticleEvent extends NewsEvent {
-  final String title;
-
   FindBookmarkArticleEvent({
     required this.title,
   });
+  final String title;
+
+  @override
+  List<Object?> get props => [title];
 }
 
 class DeleteBookmarkArticleEvent extends NewsEvent {
-  final String title;
-
   DeleteBookmarkArticleEvent({
     required this.title,
   });
+  final String title;
+
+  @override
+  List<Object?> get props => [title];
 }

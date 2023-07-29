@@ -6,7 +6,8 @@ import 'package:news_app/features/news/presentation/pages/bookmark_page.dart';
 import 'package:news_app/features/news/presentation/pages/single_news_page.dart';
 
 class OnGenerateRoute {
-  static Route<dynamic>? route(RouteSettings settings) {
+  OnGenerateRoute._();
+  static Route<dynamic> route(RouteSettings settings) {
     final args = settings.arguments;
 
     switch (settings.name) {
@@ -25,7 +26,7 @@ class OnGenerateRoute {
   }
 }
 
-dynamic routeBuilder(Widget child) {
+MaterialPageRoute routeBuilder(Widget child) {
   return MaterialPageRoute(builder: (context) => child);
 }
 
@@ -39,11 +40,11 @@ class NoScreenFound extends StatelessWidget {
       backgroundColor: colorScheme.background,
       appBar: AppBar(
         backgroundColor: colorScheme.primary,
-        title: Text("screen not found!", style: fEncodeSansMedium),
+        title: Text('screen not found!', style: fEncodeSansMedium),
       ),
       body: Center(
         child: Text(
-          "screen not found!",
+          'screen not found!',
           style: fEncodeSansBold,
         ),
       ),

@@ -1,10 +1,25 @@
-abstract class DeleteBookmarkArticleStatus {}
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
-class DeleteBookmarkArticleStatusInitial extends DeleteBookmarkArticleStatus {}
+@immutable
+abstract class DeleteBookmarkArticleStatus extends Equatable {}
 
-class DeleteBookmarkArticleStatusLoading extends DeleteBookmarkArticleStatus {}
+class DeleteBookmarkArticleStatusInitial extends DeleteBookmarkArticleStatus {
+  @override
+  List<Object?> get props => [];
+}
 
-class DeleteBookmarkArticleStatusCompleted
-    extends DeleteBookmarkArticleStatus {}
+class DeleteBookmarkArticleStatusLoading extends DeleteBookmarkArticleStatus {
+  @override
+  List<Object?> get props => [];
+}
 
-class DeleteBookmarkArticleStatusError extends DeleteBookmarkArticleStatus {}
+class DeleteBookmarkArticleStatusCompleted extends DeleteBookmarkArticleStatus {
+  @override
+  List<Object?> get props => [];
+}
+
+class DeleteBookmarkArticleStatusError extends DeleteBookmarkArticleStatus {
+  @override
+  List<Object?> get props => [];
+}
